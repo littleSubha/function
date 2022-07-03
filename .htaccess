@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
+
+
+<IfModule mod_headers.c>
+  # Prevent click jacking
+  Header set X-Frame-Options Deny
+  Header always append X-Frame-Options SAMEORIGIN
+  Header set X-Content-Type-Options nosnif
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Access-Control-Allow-Origin: "*"
+  Header add Strict-Transport-Security "max-age=31415926;includeSubDomains;"
+</IfModule>
